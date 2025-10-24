@@ -4,3 +4,15 @@
 .vscode/launch.json
 .vscode/ipch
 python/key.json
+*.pem
+*.key
+*.env
+*.crt
+*.p12
+
+# PlatformIO build artifacts
+.pio/
+.vscode/
+*.bin
+*.elf
+*.map
