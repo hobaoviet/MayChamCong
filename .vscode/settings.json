@@ -1,0 +1,13 @@
+{
+  "files.associations": {
+    "*.css": "css",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp",
+    "deque": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+    "system_error": "cpp"
+  }
+}
