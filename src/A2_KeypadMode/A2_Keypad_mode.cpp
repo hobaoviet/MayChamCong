@@ -54,7 +54,7 @@ namespace keypad_mode
     debounceMsLocal = debounceMs;
     keypad.setDebounceTime(debounceMsLocal);
 
-    // ✅ Wiring chuẩn ESP32: ROW = OUTPUT, COL = INPUT_PULLUP
+    //  Wiring chuẩn ESP32: ROW = OUTPUT, COL = INPUT_PULLUP
     for (byte i = 0; i < ROWS; i++)
       pinMode(rowPins[i], OUTPUT);
     for (byte j = 0; j < COLS; j++)
@@ -84,9 +84,7 @@ namespace keypad_mode
 
     switch (k)
     {
-    // ✅✅✅ SỬA LỖI NẰM Ở ĐÂY ✅✅✅
-    // Bỏ điều kiện if() không cần thiết.
-    // Luôn tạo sự kiện khi nhấn A hoặc B để thoát khỏi các chế độ khác.
+  
     case 'A': // Mode IN
       currentMode = Mode::IN;
       e.type = EventType::ModeChanged;
@@ -100,7 +98,6 @@ namespace keypad_mode
       e.newMode = Mode::OUT;
       enqueue(e);
       break;
-      // ✅✅✅ KẾT THÚC SỬA LỖI ✅✅✅
 
     case '*': // Enroll
       e.type = EventType::EnrollEmployee;

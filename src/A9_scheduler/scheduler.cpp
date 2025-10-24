@@ -36,7 +36,7 @@ namespace scheduler
     ui::showBoot();
     delay(1000);
 
-    // --- 🌐 Bắt đầu kết nối Wi-Fi (non-blocking, không chặn loop) ---
+    // ---  Bắt đầu kết nối Wi-Fi 
     Serial.println("[SYS] Starting network setup...");
     config::begin();
     config::connectWifi(); // khởi động quá trình kết nối, trả về ngay
@@ -232,7 +232,7 @@ namespace scheduler
     config::ensureWifi();
     mqtt_client::update();
 
-    // 🔄 Nếu Wi-Fi có IP mà MQTT chưa khởi động, bật lại MQTT
+    //  Nếu Wi-Fi có IP mà MQTT chưa khởi động, bật lại MQTT
     if (config::isWifiConnected() && !mqtt_client::isConnected() && !mqttStarted)
     {
       auto mqttCfg = config::getMqtt();

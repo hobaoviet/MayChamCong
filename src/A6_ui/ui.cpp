@@ -80,47 +80,14 @@ namespace ui
     hal::beepStart(hal::BeepPat::Double);
   }
 
-  // void showGranted(const identity_store::User &u, keypad_mode::Mode m)
-  // {
-  //   String line1 = String("Granted ") + keypad_mode::modeName(m);
-  //   String line2;
-
-  //   // Nếu có UID nhưng không có Finger ID -> điểm danh bằng thẻ
-  //   if (u.rfid_uid.length() > 0 && u.fp_id < 0)
-  //   {
-  //     line2 = "UID:" + u.rfid_uid;
-  //   }
-  //   // Nếu có Finger ID (điểm danh bằng vân tay)
-  //   else if (u.fp_id >= 0)
-  //   {
-  //     line2 = "Finger:" + String(u.fp_id);
-  //   }
-  //   else
-  //   {
-  //     line2 = "Unknown ID";
-  //   }
-
-  //   lcdShowCached(line1, line2);
-  //   hal::beepStart(hal::BeepPat::Double);
-  // }
-
-  // void showDenied(const String& reason) {
-  //   hal::lcdShow("Access Denied", reason);
-  //   hal::beepStart(hal::BeepPat::Triple);
-  // }
-
+  
   void showDenied(const String &reason)
   {
     lcdShowCached("Access Denied", reason);
     hal::beepStart(hal::BeepPat::Triple);
   }
 
-  // ===== Status =====
-  // void showStatus(const String& wifi, bool cloudOK, size_t userCount) {
-  //   String l1 = "WiFi:" + wifi;
-  //   String l2 = "Users:" + String(userCount) + (cloudOK ? " CloudOK" : " CloudNG");
-  //   hal::lcdShow(l1, l2);
-  // }
+  
 
   void showStatus(const String &wifi, bool cloudOK, size_t userCount)
   {

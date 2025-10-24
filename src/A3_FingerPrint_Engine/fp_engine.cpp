@@ -111,7 +111,7 @@ namespace fp_engine
     {
       if (!usedSlots[i])
       {
-        Serial.printf("[FP][_findFreeSlot] ✅ Found potential free slot in RAM map: %d\n", i);
+        Serial.printf("[FP][_findFreeSlot]  Found potential free slot in RAM map: %d\n", i);
         // Xác thực lại với cảm biến để chắc chắn 100%
         if (finger.loadModel(i) != FINGERPRINT_OK)
         {
@@ -120,7 +120,7 @@ namespace fp_engine
         else
         {
           // Nếu RAM nói trống nhưng cảm biến lại báo đã dùng -> đồng bộ lại
-          Serial.printf("[FP][_findFreeSlot] ⚠️ RAM map mismatch. Slot %d is actually used. Syncing.\n", i);
+          Serial.printf("[FP][_findFreeSlot]  RAM map mismatch. Slot %d is actually used. Syncing.\n", i);
           usedSlots[i] = true;
         }
       }
@@ -162,11 +162,11 @@ namespace fp_engine
 
     if (foundSlot != -1)
     {
-      Serial.printf("[FP][_findFreeSlot] ✅ Found free slot via full scan: %d\n", foundSlot);
+      Serial.printf("[FP][_findFreeSlot]  Found free slot via full scan: %d\n", foundSlot);
     }
     else
     {
-      Serial.println("[FP][_findFreeSlot] ❌ No free slot found after full scan!");
+      Serial.println("[FP][_findFreeSlot]  No free slot found after full scan!");
     }
 
     return foundSlot;
@@ -183,11 +183,11 @@ namespace fp_engine
     {
       Serial.println(F("[FP] Sensor AS608 found & verified."));
 
-      // 🔧 Force refresh template count (xử lý lỗi count ảo = 10)
+  
       finger.getTemplateCount();
       if (finger.templateCount > finger.capacity)
       {
-        Serial.printf("[FP] ⚠️ Invalid template count %d, forcing resync...\n", finger.templateCount);
+        Serial.printf("[FP]  Invalid template count %d, forcing resync...\n", finger.templateCount);
         finger.emptyDatabase();
         finger.getTemplateCount();
       }
@@ -195,7 +195,7 @@ namespace fp_engine
       // --- Load slot map hiện tại (nếu có) ---
       _loadSlotMap();
 
-      // ✅ Quét lại thực tế trên sensor để đồng bộ usedSlots[]
+      //  Quét lại thực tế trên sensor để đồng bộ usedSlots[]
       if (finger.getTemplateCount() == FINGERPRINT_OK)
       {
         int total = finger.templateCount;
@@ -501,12 +501,12 @@ namespace fp_engine
         usedSlots[stSlot] = true;
         _saveSlotMap();
 
-        // ✅ Force flush toàn bộ buffer (2 char buffers + image)
+        //  Force flush toàn bộ buffer (2 char buffers + image)
         _clearFpBuffer();
         delay(300);
         Serial.println("[FP] Flushed buffers after storeModel");
 
-        // ✅ Re-sync template count với sensor (đồng bộ slot)
+        //  Re-sync template count với sensor (đồng bộ slot)
         finger.getTemplateCount();
         delay(100);
 
@@ -527,17 +527,17 @@ namespace fp_engine
       setMsg("Done OK");
       usedSlots[stSlot] = true; // Đảm bảo slot được đánh dấu đã dùng
 
-      // ✅ FLUSH BUFFER trong RAM của cảm biến để xoá ảnh cũ
+      //  FLUSH BUFFER trong RAM của cảm biến để xoá ảnh cũ
       _clearFpBuffer();
       delay(300);
       Serial.println("[FP] Flushed buffers after DoneOK");
 
-      // ✅ Refresh lại danh sách template (đồng bộ slot thực tế)
+      //  Refresh lại danh sách template (đồng bộ slot thực tế)
       finger.getTemplateCount();
       delay(100);
       Serial.printf("[FP] Template count resynced = %d\n", finger.templateCount);
 
-      // ✅ Giữ nguyên stSlot để scheduler lấy ID thật
+      // Giữ nguyên stSlot để scheduler lấy ID thật
       out.slot = stSlot;
       // Cập nhật lại bản đồ slot một lần nữa cho chắc
       _saveSlotMap();
@@ -645,18 +645,18 @@ namespace fp_engine
 
     if (!finger.verifyPassword())
     {
-      Serial.println("[FP] ❌ Sensor not found or wrong password.");
+      Serial.println("[FP]  Sensor not found or wrong password.");
       return;
     }
 
     uint8_t p = finger.emptyDatabase();
     if (p == FINGERPRINT_OK)
     {
-      Serial.println("[FP] 🧹 All fingerprints cleared successfully!");
+      Serial.println("[FP]  All fingerprints cleared successfully!");
     }
     else
     {
-      Serial.printf("[FP] ❌ Failed to clear database (code=%d)\n", p);
+      Serial.printf("[FP]  Failed to clear database (code=%d)\n", p);
     }
 
     // đồng bộ lại map slot

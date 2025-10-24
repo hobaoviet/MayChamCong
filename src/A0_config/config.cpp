@@ -24,7 +24,7 @@ namespace config
   {
     if (!SPIFFS.exists(CONFIG_PATH))
     {
-      // ✅ QUAN TRỌNG:  thay đổi thông tin WiFi mặc định
+      //QUAN TRỌNG:  thay đổi thông tin WiFi mặc định
       wifiCfg = {"test1", "123456789"};
       mqttCfg = {"10.235.197.90", 1883, "", "", "esp32/attendance/logs", 5000};
       return saveConfig();
@@ -110,11 +110,11 @@ namespace config
     {
       if (localWifiCfg.ssid.isEmpty() || localWifiCfg.pass.isEmpty())
       {
-        Serial.println("[WiFi] ❌ Missing SSID or password in config.json");
+        Serial.println("[WiFi]  Missing SSID or password in config.json");
         return false;
       }
 
-      Serial.printf("[WiFi] 🌐 Connecting to %s...\n", localWifiCfg.ssid.c_str());
+      Serial.printf("[WiFi]  Connecting to %s...\n", localWifiCfg.ssid.c_str());
       WiFi.mode(WIFI_STA);
       WiFi.begin(localWifiCfg.ssid.c_str(), localWifiCfg.pass.c_str());
       wifiConnecting = true;
@@ -131,12 +131,12 @@ namespace config
 
       if (retryCount > maxRetries)
       {
-        Serial.println("[WiFi] ❌ Failed to connect after several attempts. Going OFFLINE.");
+        Serial.println("[WiFi]  Failed to connect after several attempts. Going OFFLINE.");
         wifiConnecting = false;
         return false;
       }
 
-      Serial.printf("[WiFi] ⚠️ Retry #%d...\n", retryCount);
+      Serial.printf("[WiFi]  Retry #%d...\n", retryCount);
       WiFi.disconnect();
       WiFi.begin(localWifiCfg.ssid.c_str(), localWifiCfg.pass.c_str());
     }
@@ -145,7 +145,7 @@ namespace config
     if (WiFi.status() == WL_CONNECTED)
     {
       wifiConnecting = false;
-      Serial.printf("[WiFi] ✅ Connected! IP: %s\n", WiFi.localIP().toString().c_str());
+      Serial.printf("[WiFi]  Connected! IP: %s\n", WiFi.localIP().toString().c_str());
       return true;
     }
 
@@ -166,7 +166,7 @@ namespace config
     }
   }
 
-  // ✅ Thêm hàm này để scheduler.cpp có thể gọi
+  //  Thêm hàm này để scheduler.cpp có thể gọi
   bool isWifiConnected()
   {
     return (WiFi.status() == WL_CONNECTED);

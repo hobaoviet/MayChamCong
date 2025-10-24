@@ -6,7 +6,7 @@ namespace rfid_engine
   static uint32_t lastSeenAt = 0;
   static String lastUidHex = "";
   static uint32_t cooldownMs = 2000;
-  static uint32_t ignoreUntil = 0; // ✅ bỏ qua tạm sau khi enroll xong
+  static uint32_t ignoreUntil = 0; // bỏ qua tạm sau khi enroll xong
 
   void begin()
   {
@@ -18,7 +18,7 @@ namespace rfid_engine
   {
     AuthResult r;
 
-    // ✅ Bỏ qua đọc thẻ nếu đang trong thời gian ignore
+    // Bỏ qua đọc thẻ nếu đang trong thời gian ignore
     if (millis() < ignoreUntil)
       return r;
 
@@ -77,7 +77,7 @@ namespace rfid_engine
     cooldownMs = ms;
   }
 
-  // ✅ API mới: bỏ qua RFID trong thời gian ms
+  //  API mới: bỏ qua RFID trong thời gian ms
   void ignoreFor(uint32_t ms)
   {
     ignoreUntil = millis() + ms;

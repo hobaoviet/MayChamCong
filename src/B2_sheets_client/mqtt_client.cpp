@@ -26,7 +26,7 @@ namespace mqtt_client
 
     if (connecting)
     {
-      Serial.println("[MQTT] ⏳ Already connecting, skip duplicate");
+      Serial.println("[MQTT] Already connecting, skip duplicate");
       return;
     }
 
@@ -39,18 +39,18 @@ namespace mqtt_client
   {
     connected = true;
     connecting = false;
-    Serial.printf("[MQTT] ✅ Connected to %s:%d (sessionPresent=%d)\n",
+    Serial.printf("[MQTT]  Connected to %s:%d (sessionPresent=%d)\n",
                   cfg.server.c_str(), cfg.port, sessionPresent);
 
     mqttClient.subscribe(TOPIC_DOOR_CMD, 1);
-    Serial.println("[MQTT] 📡 Subscribed to door control topic");
+    Serial.println("[MQTT] Subscribed to door control topic");
   }
 
   static void onMqttDisconnect(AsyncMqttClientDisconnectReason reason)
   {
     connected = false;
     connecting = false;
-    Serial.printf("[MQTT] ⚠️ Disconnected (reason=%d)\n", (int)reason);
+    Serial.printf("[MQTT] Disconnected (reason=%d)\n", (int)reason);
 
     // Cho AsyncTCP dọn socket cũ
     delay(100);
@@ -65,14 +65,14 @@ namespace mqtt_client
     for (size_t i = 0; i < len; i++)
       msg += (char)payload[i];
 
-    Serial.printf("[MQTT] 🔔 Received on %s: %s\n", topic, msg.c_str());
+    Serial.printf("[MQTT]  Received on %s: %s\n", topic, msg.c_str());
 
     if (strcmp(topic, TOPIC_DOOR_CMD) == 0)
     {
       DynamicJsonDocument doc(256);
       if (deserializeJson(doc, msg))
       {
-        Serial.println("[MQTT] ❌ JSON parse error");
+        Serial.println("[MQTT]  JSON parse error");
         return;
       }
 
@@ -81,7 +81,7 @@ namespace mqtt_client
 
       if (cmd == "open_door")
       {
-        Serial.printf("[DOOR] 🔓 Remote open by %s\n", by.c_str());
+        Serial.printf("[DOOR]  Remote open by %s\n", by.c_str());
         door::open(5000); // mở relay 5 giây
 
         // Gửi phản hồi trạng thái
@@ -93,7 +93,7 @@ namespace mqtt_client
         String jsonOut;
         serializeJson(res, jsonOut);
         mqttClient.publish(TOPIC_DOOR_STATUS, 1, false, jsonOut.c_str());
-        Serial.printf("[MQTT] ✅ Door status published: %s\n", jsonOut.c_str());
+        Serial.printf("[MQTT]  Door status published: %s\n", jsonOut.c_str());
       }
     }
   }
@@ -123,7 +123,7 @@ namespace mqtt_client
 
   void update()
   {
-    // ✅ Kiểm tra điều kiện reconnect an toàn
+    // Kiểm tra điều kiện reconnect an toàn
     if (WiFi.isConnected() && !connected && millis() - lastReconnectAttempt > cfg.retryMs)
     {
       lastReconnectAttempt = millis();
@@ -136,7 +136,7 @@ namespace mqtt_client
     {
       if (!e.ok)
       {
-        Serial.println("[MQTT] ⚠️ Skip log (ok=false)");
+        Serial.println("[MQTT]  Skip log (ok=false)");
         log_queue::pop();
         return;
       }
@@ -145,12 +145,12 @@ namespace mqtt_client
       bool ok = mqttClient.publish(cfg.topic.c_str(), 1, false, jsonStr.c_str(), jsonStr.length());
       if (ok)
       {
-        Serial.printf("[MQTT] ✅ Published log (%s)\n", cfg.topic.c_str());
+        Serial.printf("[MQTT]  Published log (%s)\n", cfg.topic.c_str());
         log_queue::pop();
       }
       else
       {
-        Serial.println("[MQTT] ❌ Publish failed");
+        Serial.println("[MQTT]  Publish failed");
       }
     }
   }

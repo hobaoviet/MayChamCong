@@ -177,33 +177,11 @@ namespace identity_store
     // --- ghi xuống Flash ngay ---
     saveToFlash();
 
-    Serial.printf("[ID_STORE] ✅ Added user (uid=%s, fid=%d)\n", norm.c_str(), fp_id);
+    Serial.printf("[ID_STORE]  Added user (uid=%s, fid=%d)\n", norm.c_str(), fp_id);
     return true;
   }
 
-  // bool removeByUid(const String& uid) {
-  //   String norm = normalizeUID(uid);
-  //   for (size_t i = 0; i < g_users.size(); ++i) {
-  //     if (g_users[i].rfid_uid == norm) {
-  //       g_users.erase(g_users.begin() + i);
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
-  // bool removeByUid(const String& uid) {
-  //   String norm = normalizeUID(uid);
-  //   for (auto it = g_users.begin(); it != g_users.end(); ++it) {
-  //     if (it->rfid_uid == norm) {
-  //       g_users.erase(it);
-  //       saveToFlash();   // 🔹 cập nhật flash ngay sau khi xoá
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
+ 
   bool removeByUid(const String &uid)
   {
     String norm = normalizeUID(uid);
@@ -249,13 +227,7 @@ namespace identity_store
     return false;
   }
 
-  // int getFingerByUid(const String& uid) {
-  //   String norm = normalizeUID(uid);
-  //   for (const auto& u : g_users) {
-  //     if (u.rfid_uid == norm) return u.fp_id;
-  //   }
-  //   return -1;
-  // }
+
 
   int getFingerByUid(const String &uid)
   {

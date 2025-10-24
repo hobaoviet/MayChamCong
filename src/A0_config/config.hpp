@@ -34,7 +34,7 @@ namespace config
   bool connectWifi();
   void ensureWifi();
 
-  // ✅ Thêm dòng này để scheduler.cpp có thể gọi kiểm tra trạng thái Wi-Fi
+  //  Thêm dòng này để scheduler.cpp có thể gọi kiểm tra trạng thái Wi-Fi
   bool isWifiConnected();
 
 } // namespace config

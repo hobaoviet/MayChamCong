@@ -3,10 +3,10 @@
 #include "../src/A3_FingerPrint_Engine/fp_engine.hpp"
 #include <SPIFFS.h>
 
-// ✅✅✅ CHỨC NĂNG FACTORY RESET ✅✅✅
+//  CHỨC NĂNG FACTORY RESET
 // - Đổi thành `true` và nạp code 1 LẦN để XÓA SẠCH toàn bộ dữ liệu (log, user, config, fingerprint).
 // - Sau đó, đổi lại thành `false` và nạp lại code để hoạt động bình thường.
-const bool PERFORM_FACTORY_RESET = false; // 👈 bật reset 1 lần duy nhất
+const bool PERFORM_FACTORY_RESET = false; //  bật reset 1 lần duy nhất
 
 void setup()
 {
@@ -31,11 +31,11 @@ void setup()
       SPIFFS.remove("/users.json");
       SPIFFS.remove("/logs.jsonl");
       SPIFFS.remove("/fp_slots.bin");
-      Serial.println("[RESET] ✅ Data files wiped.");
+      Serial.println("[RESET]  Data files wiped.");
     }
     else
     {
-      Serial.println("[RESET] ❌ SPIFFS mount failed. Cannot wipe files.");
+      Serial.println("[RESET] SPIFFS mount failed. Cannot wipe files.");
     }
 
     // --- Xóa vân tay trong cảm biến ---
@@ -46,7 +46,7 @@ void setup()
     }
     else
     {
-      Serial.println("[RESET] ❌ Fingerprint sensor not detected!");
+      Serial.println("[RESET]  Fingerprint sensor not detected!");
     }
 
     Serial.println("[RESET] --- RESET COMPLETE ---");

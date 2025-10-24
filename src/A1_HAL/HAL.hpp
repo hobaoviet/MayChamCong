@@ -67,13 +67,6 @@ constexpr int HAL_BUZZER_RES_BITS = 8;
 constexpr int  HAL_RELAY_PIN        = 2;
 constexpr bool HAL_RELAY_ACTIVE_LOW = true;
 
-// // Relay – active LOW (LOW = ON)
-// constexpr int  HAL_DOOR_PIN        = 2;
-// constexpr bool HAL_DOOR_ACTIVE_LOW = true;
-
-// (Tùy chọn) IRQ từ MFRC522 để đánh thức (nếu bạn có dây)
-// #define HAL_RFID_IRQ_PIN 34
-
 // =====================================
 // 2) SINGLETON-LIKE ACCESSORS (đối tượng dùng chung)
 // =====================================
